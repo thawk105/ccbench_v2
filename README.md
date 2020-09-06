@@ -1,5 +1,5 @@
 # CCBench_v2 : Redesign and Implement Many Concurrency Control
-![build_and_ctest](https://github.com/thawk105/ccbench_v2/workflows/build_and_test/badge.svg)
+![build_and_test](https://github.com/thawk105/ccbench_v2/workflows/build_and_test/badge.svg)
 
 ---
 

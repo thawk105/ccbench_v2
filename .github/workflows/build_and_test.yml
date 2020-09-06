@@ -1,4 +1,4 @@
-name: tpcc_silo_build_and_ctest
+name: build_and_test
 
 on: [push, pull_request]
 
