@@ -11,7 +11,6 @@
 #include "util.hh"
 
 #include "random.hh"
-#include "util.hh"
 
 #include "tpcc/include/tpcc_initializer.hpp"
 #include "tpcc/include/tpcc_query.hpp"
@@ -148,4 +147,5 @@ int main(int argc, char *argv[]) try {
   std::abort();
 } catch (std::exception &e) {
   std::cout << __FILE__ << " : " << __LINE__ << " : std::exception caught : " << e.what() << std::endl;
+  std::abort();
 }

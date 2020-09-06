@@ -3,7 +3,7 @@
  */
 
 #include "interface.h"
-#include "masstree_beta/include/masstree_beta_wrapper.h"
+#include "masstree_beta_wrapper.h"
 #include "tpcc_query.hpp"
 
 

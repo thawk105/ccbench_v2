@@ -2,9 +2,10 @@
 // Created by thawk on 2020/08/12.
 //
 
+#include "gtest/gtest.h"
+
 #define GLOBAL_VALUE_DEFINE
 #include "common.hh"
-#include "gtest/gtest.h"
 #include "tpcc_initializer.hpp"
 
 namespace ccbench::testing {

@@ -58,8 +58,4 @@ constexpr std::size_t DIST_PER_WARE{10};
 constexpr std::size_t MAX_ITEMS{100000};
 constexpr std::size_t CUST_PER_DIST{3000};
 
-
-alignas(CACHE_LINE_SIZE) GLOBAL uint64_t_64byte *ThLocalEpoch;
-alignas(CACHE_LINE_SIZE) GLOBAL uint64_t_64byte *CTIDW;
-
 //alignas(CACHE_LINE_SIZE) GLOBAL Tuple *Table;

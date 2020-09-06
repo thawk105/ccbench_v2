@@ -1,23 +1,21 @@
 file(GLOB SILO_SOURCES
-        "result.cpp"
-        "{PROJECT_SOURCE_DIR}/src/util.cc"
-        "{PROJECT_SOURCE_DIR}/src/epoch.cpp"
-        "{PROJECT_SOURCE_DIR}/src/garbage_collection.cpp"
-        "{PROJECT_SOURCE_DIR}/src/index/masstree_beta/masstree_beta_wrapper.cpp"
-        "{PROJECT_SOURCE_DIR}/src/interface/interface_delete.cpp"
-        "{PROJECT_SOURCE_DIR}/src/interface/interface_helper.cpp"
-        "{PROJECT_SOURCE_DIR}/src/interface/interface_scan.cpp"
-        "{PROJECT_SOURCE_DIR}/src/interface/interface_search.cpp"
-        "{PROJECT_SOURCE_DIR}/src/interface/interface_termination.cpp"
-        "{PROJECT_SOURCE_DIR}/src/interface/interface_update_insert.cpp"
-        "{PROJECT_SOURCE_DIR}/src/log.cpp"
-        "{PROJECT_SOURCE_DIR}/src/result.cc"
-        "{PROJECT_SOURCE_DIR}/src/scheme.cpp"
-        "{PROJECT_SOURCE_DIR}/src/session_info.cpp"
-        "{PROJECT_SOURCE_DIR}/src/session_info_table.cpp"
-        "{PROJECT_SOURCE_DIR}/src/tid.cpp"
-        "{PROJECT_SOURCE_DIR}/src/util.cc"
-        "{PROJECT_SOURCE_DIR}/src/util.cpp"
+        "result.cc"
+        "util.cpp"
+        "${PROJECT_SOURCE_DIR}/src/util.cc"
+        "${PROJECT_SOURCE_DIR}/src/epoch.cpp"
+        "${PROJECT_SOURCE_DIR}/src/garbage_collection.cpp"
+        "${PROJECT_SOURCE_DIR}/src/index/masstree_beta/masstree_beta_wrapper.cpp"
+        "${PROJECT_SOURCE_DIR}/src/interface/interface_delete.cpp"
+        "${PROJECT_SOURCE_DIR}/src/interface/interface_helper.cpp"
+        "${PROJECT_SOURCE_DIR}/src/interface/interface_scan.cpp"
+        "${PROJECT_SOURCE_DIR}/src/interface/interface_search.cpp"
+        "${PROJECT_SOURCE_DIR}/src/interface/interface_termination.cpp"
+        "${PROJECT_SOURCE_DIR}/src/interface/interface_update_insert.cpp"
+        "${PROJECT_SOURCE_DIR}/src/log.cpp"
+        "${PROJECT_SOURCE_DIR}/src/scheme.cpp"
+        "${PROJECT_SOURCE_DIR}/src/session_info.cpp"
+        "${PROJECT_SOURCE_DIR}/src/session_info_table.cpp"
+        "${PROJECT_SOURCE_DIR}/src/tid.cpp"
         )
 
 file(GLOB TPCC_SOURCES
@@ -26,7 +24,7 @@ file(GLOB TPCC_SOURCES
         "tpcc/tpcc_query.cpp"
         )
 
-add_executable(bench.exe ${SILO_SOURCES} bench.cpp ${TPCC_SOURCES})
+add_executable(bench.exe bench.cpp ${SILO_SOURCES} ${TPCC_SOURCES})
 
 set_compile_options(bench.exe)
 

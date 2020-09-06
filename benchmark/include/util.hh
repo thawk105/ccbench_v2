@@ -1,20 +1,27 @@
 #pragma once
 
+#include <chrono>
+#include <thread>
+
+#include "atomic_wrapper.h"
+
+namespace ccbench {
+
 extern void chkArg();
 
-extern bool chkEpochLoaded();
+inline bool isReady(const std::vector<char> &readys) {
+  for (const char &b : readys) {
+    if (!loadAcquire(b)) return false;
+  }
+  return true;
+}
 
-extern void displayDB();
+inline void sleepMs(std::size_t ms) {
+  std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+}
 
 extern void displayParameter();
 
-extern void genLogFile(std::string &logpath, const int thid);
+extern void waitForReady(const std::vector<char> &readys);
 
-extern void leaderWork(uint64_t &epoch_timer_start, uint64_t &epoch_timer_stop);
-
-extern void makeDB();
-
-extern void partTableInit([[maybe_unused]] size_t thid, uint64_t start,
-                          uint64_t end);
-
-extern void ShowOptParameters();
+}

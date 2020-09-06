@@ -1,5 +1,4 @@
 file(GLOB SILO_SOURCES
-        "${PROJECT_SOURCE_DIR}/src/util.cc"
         "${PROJECT_SOURCE_DIR}/src/epoch.cpp"
         "${PROJECT_SOURCE_DIR}/src/garbage_collection.cpp"
         "${PROJECT_SOURCE_DIR}/src/interface/interface_delete.cpp"
@@ -60,7 +59,6 @@ foreach (src IN LISTS TEST_SOURCES)
             target_link_libraries(${test_name}
                     Boost::filesystem
                     gflags::gflags
-                    ${PROJECT_SOURCE_DIR}/third_party/mimalloc/out/release/libmimalloc.a
                     ${PROJECT_SOURCE_DIR}/third_party/masstree/libkohler_masstree_json.a
                     ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest.a
                     ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest_main.a

@@ -3,8 +3,9 @@
 #include <iomanip>
 #include <iostream>
 
-#include "../include/debug.hh"
-#include "../include/result.hh"
+#include "common.hh"
+#include "memory.h"
+#include "result.hh"
 
 using std::cout;
 using std::endl;
@@ -12,7 +13,9 @@ using std::fixed;
 using std::setprecision;
 using namespace std;
 
-extern void displayRusageRUMaxrss();
+void displayRusageRUMaxrss() {
+
+}
 
 void Result::displayAbortCounts() {
   cout << "abort_counts_:\t" << total_abort_counts_ << endl;
@@ -502,3 +505,7 @@ void Result::addLocalAllResult(const Result &other) {
   addLocalVersionReuse(other.local_version_reuse_);
 #endif
 }
+
+alignas(CACHE_LINE_SIZE) std::vector<Result> SiloResult;
+
+void initResult() { SiloResult.resize(FLAGS_thread_num); }

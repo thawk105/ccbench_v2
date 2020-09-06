@@ -1,6 +1,6 @@
 #include "interface_helper.h"
 #include "session_info_table.h"
-#include "index/masstree_beta/include/masstree_beta_wrapper.h"
+#include "masstree_beta_wrapper.h"
 #include "interface.h"  // NOLINT
 
 namespace ccbench {

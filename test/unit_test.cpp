@@ -4,7 +4,7 @@
 
 #include "gtest/gtest.h"
 #include "interface.h"
-#include "masstree_beta/include/masstree_beta_wrapper.h"
+#include "masstree_beta_wrapper.h"
 
 namespace ccbench::testing {
 
