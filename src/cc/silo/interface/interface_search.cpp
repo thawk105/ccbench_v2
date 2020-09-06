@@ -1,7 +1,8 @@
-#include "interface_helper.h"
-#include "session_info_table.h"
 #include "masstree_beta_wrapper.h"
-#include "interface.h"  // NOLINT
+#include "cc/silo/interface/interface_helper.h"
+#include "cc/silo/interface/interface.h"  // NOLINT
+
+#include "cc/silo/include/session_info_table.h"
 
 namespace ccbench {
 

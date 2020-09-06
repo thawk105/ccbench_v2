@@ -7,18 +7,18 @@
 
 #pragma once
 
-#include "common.hh"
-#include "epoch.h"
-#include "interface.h"
-#include "masstree_beta_wrapper.h"
-#include "random.hh"
-#include "tpcc_tables.hpp"
-
 #include <algorithm>
 #include <cassert>
 #include <thread>
 #include <vector>
 
+#include "common.hh"
+#include "masstree_beta_wrapper.h"
+#include "random.hh"
+#include "tpcc_tables.hpp"
+
+#include "cc/silo/include/epoch.h"
+#include "cc/silo/interface/interface.h"
 
 
 using namespace ccbench;

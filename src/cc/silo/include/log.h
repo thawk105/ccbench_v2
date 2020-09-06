@@ -11,10 +11,11 @@
 #include <cstring>
 
 #include "fileio.h"
-#include "interface.h"
 #include "scheme_global.h"
 #include "tid.h"
 #include "tuple.h"
+
+#include "cc/silo/interface/interface.h"
 
 namespace ccbench {
 

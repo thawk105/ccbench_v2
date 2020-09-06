@@ -3,9 +3,7 @@
  * @brief about entire shirakami.
  */
 
-#include "session_info_table.h"
-
-#include "garbage_collection.h"
+#include "cc/silo/include/session_info_table.h"
 
 namespace ccbench {
 

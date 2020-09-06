@@ -1,21 +1,21 @@
 file(GLOB SILO_SOURCES
         "result.cc"
         "util.cpp"
-        "${PROJECT_SOURCE_DIR}/src/util.cc"
-        "${PROJECT_SOURCE_DIR}/src/epoch.cpp"
-        "${PROJECT_SOURCE_DIR}/src/garbage_collection.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/util.cc"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/epoch.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/garbage_collection.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/interface/interface_delete.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/interface/interface_helper.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/interface/interface_scan.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/interface/interface_search.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/interface/interface_termination.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/interface/interface_update_insert.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/log.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/scheme.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/session_info.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/session_info_table.cpp"
+        "${PROJECT_SOURCE_DIR}/src/cc/silo/tid.cpp"
         "${PROJECT_SOURCE_DIR}/src/index/masstree_beta/masstree_beta_wrapper.cpp"
-        "${PROJECT_SOURCE_DIR}/src/interface/interface_delete.cpp"
-        "${PROJECT_SOURCE_DIR}/src/interface/interface_helper.cpp"
-        "${PROJECT_SOURCE_DIR}/src/interface/interface_scan.cpp"
-        "${PROJECT_SOURCE_DIR}/src/interface/interface_search.cpp"
-        "${PROJECT_SOURCE_DIR}/src/interface/interface_termination.cpp"
-        "${PROJECT_SOURCE_DIR}/src/interface/interface_update_insert.cpp"
-        "${PROJECT_SOURCE_DIR}/src/log.cpp"
-        "${PROJECT_SOURCE_DIR}/src/scheme.cpp"
-        "${PROJECT_SOURCE_DIR}/src/session_info.cpp"
-        "${PROJECT_SOURCE_DIR}/src/session_info_table.cpp"
-        "${PROJECT_SOURCE_DIR}/src/tid.cpp"
         )
 
 file(GLOB TPCC_SOURCES
@@ -33,6 +33,7 @@ target_include_directories(bench.exe
         PRIVATE tpcc/include
         PRIVATE ${PROJECT_SOURCE_DIR}
         PRIVATE ${PROJECT_SOURCE_DIR}/third_party
+        PRIVATE ${PROJECT_SOURCE_DIR}/src
         PRIVATE ${PROJECT_SOURCE_DIR}/src/include
         PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
         PRIVATE ${PROJECT_SOURCE_DIR}/src/interface

@@ -3,8 +3,8 @@
  * @brief about scheme
  */
 
-#include "garbage_collection.h"
-#include "session_info.h"
+#include "cc/silo/include/garbage_collection.h"
+#include "cc/silo/include/session_info.h"
 
 namespace ccbench {
 

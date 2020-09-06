@@ -2,7 +2,7 @@
  * @file payment.cpp
  */
 
-#include "interface.h"
+#include "cc/silo/interface/interface.h"
 #include "masstree_beta_wrapper.h"
 #include "tpcc_query.hpp"
 

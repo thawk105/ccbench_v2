@@ -3,10 +3,10 @@
  * @brief about garbage collection.
  */
 
-#include "garbage_collection.h"
-
 #include "index/masstree_beta/include/masstree_beta_wrapper.h"
-#include "session_info.h"
+
+#include "cc/silo/include/garbage_collection.h"
+#include "cc/silo/include/session_info.h"
 
 namespace ccbench::garbage_collection {
 

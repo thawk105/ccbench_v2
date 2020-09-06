@@ -3,7 +3,8 @@
 //
 
 #include "gtest/gtest.h"
-#include "interface.h"
+
+#include "cc/silo/interface/interface.h"
 #include "masstree_beta_wrapper.h"
 
 namespace ccbench::testing {

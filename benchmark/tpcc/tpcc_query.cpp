@@ -3,11 +3,8 @@
  */
 
 #include <cstring>
-#include "../include/random.hh"
 #include "tpcc_query.hpp"
 #include "tpcc_util.hpp"
-#include "epoch.h"
-
 
 #define ID_START 1
 

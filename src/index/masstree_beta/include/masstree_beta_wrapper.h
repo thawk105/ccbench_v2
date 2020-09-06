@@ -11,9 +11,10 @@
 #include <typeinfo>
 #include <vector>
 
-#include "record.h"
 #include "scheme_global.h"
 #include "tpcc_tables.hpp"
+
+#include "cc/silo/include/record.h"
 
 /* if you use formatter, following 2 lines may be exchange.
  * but there is a dependency relation, so teh order is restricted config ->

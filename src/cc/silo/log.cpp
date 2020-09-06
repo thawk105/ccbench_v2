@@ -3,7 +3,7 @@
  * @brief implement about log
  */
 
-#include "log.h"
+#include "cc/silo/include/log.h"
 
 namespace ccbench {
 

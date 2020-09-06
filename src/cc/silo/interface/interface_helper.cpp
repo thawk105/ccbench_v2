@@ -2,10 +2,9 @@
  * @file helper.cpp
  */
 
-#include "interface_helper.h"
-
-#include "garbage_collection.h"
-#include "session_info_table.h"
+#include "cc/silo/include/garbage_collection.h"
+#include "cc/silo/include/session_info_table.h"
+#include "cc/silo/interface/interface_helper.h"
 
 #include "masstree_beta_wrapper.h"
 #include "boost/filesystem.hpp"

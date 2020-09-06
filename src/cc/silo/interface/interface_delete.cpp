@@ -6,8 +6,10 @@
 #include <bitset>
 
 #include "atomic_wrapper.h"
-#include "garbage_collection.h"
-#include "interface_helper.h"
+
+#include "cc/silo/include/garbage_collection.h"
+#include "cc/silo/interface/interface_helper.h"
+
 #include "masstree_beta_wrapper.h"
 
 namespace ccbench {

@@ -4,7 +4,7 @@
 
 #pragma once
 
-#include "session_info.h"
+#include "cc/silo/include/session_info.h"
 
 namespace ccbench {
 

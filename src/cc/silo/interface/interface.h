@@ -5,9 +5,10 @@
 
 #pragma once
 
-#include "scheme.h"
 #include "scheme_global.h"
 #include "tuple.h"
+
+#include "cc/silo/include/scheme.h"
 
 #define STRING(macro) #macro          // NOLINT
 #define MAC2STR(macro) STRING(macro)  // NOLINT

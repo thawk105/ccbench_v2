@@ -5,7 +5,7 @@
 
 #include "include/session_info.h"
 
-#include "garbage_collection.h"
+#include "cc/silo/include/garbage_collection.h"
 #include "index/masstree_beta/include/masstree_beta_wrapper.h"
 
 namespace ccbench {

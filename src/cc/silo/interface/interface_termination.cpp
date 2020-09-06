@@ -1,9 +1,8 @@
 #include <bitset>
 
 #include "atomic_wrapper.h"
-#include "garbage_collection.h"
-#include "interface_helper.h"
-#include "interface.h"        // NOLINT
+#include "cc/silo/include/garbage_collection.h"
+#include "cc/silo/interface/interface_helper.h"
 
 namespace ccbench {
 

@@ -3,14 +3,16 @@
  * @brief implement about epoch
  */
 
-#include "epoch.h"
-
 #include <xmmintrin.h>  // NOLINT
-
-#include "session_info_table.h"
-#include "clock.h"
-#include "benchmark/include/util.hh"
 #include <ctime>
+
+#include "include/epoch.h"
+#include "include/session_info_table.h"
+
+#include "clock.h"
+
+#include "benchmark/include/util.hh"
+
 
 
 namespace ccbench::epoch {
@@ -49,13 +51,13 @@ void epocher() {
     sleepMs(KVS_EPOCH_TIME);
 
     {
-        // reset timestamp.
-        struct timespec ts;
-        [[maybe_unused]] int ret = ::clock_gettime(CLOCK_MONOTONIC, &ts);
-        assert(ret == 0);
-        if (get_lightweight_timestamp() != ts.tv_sec) {
-            storeRelease(timestamp_, ts.tv_sec);
-        }
+      // reset timestamp.
+      struct timespec ts;
+      [[maybe_unused]] int ret = ::clock_gettime(CLOCK_MONOTONIC, &ts);
+      assert(ret == 0);
+      if (get_lightweight_timestamp() != ts.tv_sec) {
+        storeRelease(timestamp_, ts.tv_sec);
+      }
     }
 
     /**

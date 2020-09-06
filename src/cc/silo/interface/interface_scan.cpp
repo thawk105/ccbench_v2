@@ -7,7 +7,6 @@
 
 #include "interface_helper.h"
 #include "masstree_beta_wrapper.h"
-#include "session_info.h"
 
 namespace ccbench {
 
