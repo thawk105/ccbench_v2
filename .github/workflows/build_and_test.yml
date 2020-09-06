@@ -50,7 +50,6 @@ jobs:
       - id: Build_bench
         name: Build_bench
         run: |
-          cd benchmark
           mkdir -p build
           cd build
           cmake -DCMAKE_BUILD_TYPE=Debug ..
