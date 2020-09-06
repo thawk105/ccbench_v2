@@ -3,8 +3,8 @@
  */
 
 #include "interface.h"
-#include "index/masstree_beta/include/masstree_beta_wrapper.h"
-#include "tpcc/tpcc_query.hpp"
+#include "masstree_beta/include/masstree_beta_wrapper.h"
+#include "tpcc_query.hpp"
 
 
 using namespace ccbench;

@@ -10,6 +10,3 @@
 [submodule "third_party/masstree"]
 	path = third_party/masstree
 	url = git@github.com:thawk105/masstree-beta.git
-[submodule "third_party/mimalloc"]
-	path = third_party/mimalloc
-	url = https://github.com/microsoft/mimalloc.git

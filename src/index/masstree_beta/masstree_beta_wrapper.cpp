@@ -6,7 +6,7 @@
 #include <bitset>
 
 #include "cpu.h"
-#include "masstree_beta_wrapper.h"
+#include "include/masstree_beta_wrapper.h"
 #include "scheme_global.h"
 
 volatile mrcu_epoch_type active_epoch = 1;          // NOLINT

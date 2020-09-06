@@ -8,7 +8,7 @@
 #include "atomic_wrapper.h"
 #include "garbage_collection.h"
 #include "interface_helper.h"
-#include "index/masstree_beta/include/masstree_beta_wrapper.h"
+#include "masstree_beta_wrapper.h"
 
 namespace ccbench {
 

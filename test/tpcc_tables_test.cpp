@@ -3,7 +3,7 @@
 //
 
 #include "gtest/gtest.h"
-#include "tpcc/tpcc_tables.hpp"
+#include "tpcc_tables.hpp"
 
 namespace ccbench::testing {
 

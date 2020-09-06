@@ -49,7 +49,7 @@ foreach (src IN LISTS TEST_SOURCES)
             target_include_directories(${test_name}
                     PRIVATE ${PROJECT_SOURCE_DIR}
                     PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc
+                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc/include
                     PRIVATE ${PROJECT_SOURCE_DIR}/src/include
                     PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
                     PRIVATE ${PROJECT_SOURCE_DIR}/src/interface
@@ -71,9 +71,11 @@ foreach (src IN LISTS TEST_SOURCES)
 
             target_include_directories(${test_name}
                     PRIVATE ${PROJECT_SOURCE_DIR}
-                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc
-                    PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include
+                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc/include
                     PRIVATE ${PROJECT_SOURCE_DIR}/src/include
+                    PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
+                    PRIVATE ${PROJECT_SOURCE_DIR}/src/index
+                    PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include
                     )
 
             target_link_libraries(${test_name}

@@ -5,7 +5,7 @@
 #define GLOBAL_VALUE_DEFINE
 #include "common.hh"
 #include "gtest/gtest.h"
-#include "tpcc/tpcc_initializer.hpp"
+#include "tpcc_initializer.hpp"
 
 namespace ccbench::testing {
 

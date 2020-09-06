@@ -25,24 +25,24 @@ file(GLOB TPCC_SOURCES
         "tpcc/payment.cpp"
         "tpcc/tpcc_query.cpp"
         )
+
 add_executable(bench.exe ${SILO_SOURCES} bench.cpp ${TPCC_SOURCES})
 
 set_compile_options(bench.exe)
 
 target_include_directories(bench.exe
         PRIVATE include
+        PRIVATE tpcc/include
         PRIVATE ${PROJECT_SOURCE_DIR}
         PRIVATE ${PROJECT_SOURCE_DIR}/third_party
         PRIVATE ${PROJECT_SOURCE_DIR}/src/include
         PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
         PRIVATE ${PROJECT_SOURCE_DIR}/src/interface
-        PRIVATE ${PROJECT_SOURCE_DIR}/tpcc
         )
 
 target_link_libraries(bench.exe
         Boost::filesystem
         gflags::gflags
-        ${PROJECT_SOURCE_DIR}/third_party/mimalloc/out/release/libmimalloc.a
         ${PROJECT_SOURCE_DIR}/third_party/masstree/libkohler_masstree_json.a
         Threads::Threads
         )

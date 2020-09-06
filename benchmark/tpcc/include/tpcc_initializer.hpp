@@ -7,12 +7,12 @@
 
 #pragma once
 
-#include "interface.h"
-#include "./index/masstree_beta/include/masstree_beta_wrapper.h"
-#include "tpcc_tables.hpp"
 #include "common.hh"
-#include "../include/random.hh"
 #include "epoch.h"
+#include "interface.h"
+#include "masstree_beta_wrapper.h"
+#include "random.hh"
+#include "tpcc_tables.hpp"
 
 #include <algorithm>
 #include <cassert>

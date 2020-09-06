@@ -1,6 +1,6 @@
 #include "interface.h"
 #include "masstree_beta_wrapper.h"
-#include "tpcc/tpcc_query.hpp"
+#include "tpcc_query.hpp"
 
 using namespace ccbench;
 
