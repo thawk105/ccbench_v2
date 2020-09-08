@@ -37,7 +37,7 @@ Status abort(Token token);  // NOLINT
  * @return Status::WARN_INVALID_HANDLE The @a handle is invalid.
  */
 Status close_scan(Token token, Storage storage,  // NOLINT
-                         ScanHandle handle);
+                  ScanHandle handle);
 
 /**
  * @brief silo's(SOSP2013) validation protocol. If this function return ERR_
@@ -132,7 +132,7 @@ void fin();
  * name
  */
 [[maybe_unused]] Status get_storage(std::string_view name,  // NOLINT
-                                           Storage &storage);
+                                    Storage &storage);
 
 /**
  * @brief initialize shirakami environment
@@ -160,7 +160,8 @@ Status init(                                                // NOLINT
  * update/insert/upsert, so it update the local write set object.
  */
 Status insert(Token token, Storage st, std::string_view key, std::string_view val, std::align_val_t val_align);
-Status insert(Token token, Storage st, Tuple&& tuple);
+
+Status insert(Token token, Storage st, Tuple &&tuple);
 
 /**
  * @brief leave session
@@ -189,9 +190,9 @@ Status leave(Token token);  // NOLINT
  * @return Status::OK the some records was scanned.
  */
 Status open_scan(Token token, Storage storage,  // NOLINT
-                        std::string_view left_key, bool l_exclusive,
-                        std::string_view right_key, bool r_exclusive,
-                        ScanHandle &handle);
+                 std::string_view left_key, bool l_exclusive,
+                 std::string_view right_key, bool r_exclusive,
+                 ScanHandle &handle);
 
 /**
  * @brief This function reads the one records from the scan_cache
@@ -212,7 +213,7 @@ Status open_scan(Token token, Storage storage,  // NOLINT
  * @return Status::WARN_SCAN_LIMIT It have read all records in the scan_cache.
  * @return Status::OK It succeeded.
  */
-Status read_from_scan(Token token, Storage storage, ScanHandle handle, Tuple **result); // NOLINT
+Status read_from_scan(Token token, Storage storage, ScanHandle handle, Tuple** result); // NOLINT
 
 /**
  * @brief register new storage, which is used to separate the KVS's key space,
@@ -223,9 +224,9 @@ Status read_from_scan(Token token, Storage storage, ScanHandle handle, Tuple **r
  * that is used for the subsequent calls related with the storage.
  * @return Status::OK if successful
  */
-[[maybe_unused]] Status register_storage(char const *name,  // NOLINT
-                                                std::size_t len_name,
-                                                Storage &storage);
+[[maybe_unused]] Status register_storage(char const* name,  // NOLINT
+                                         std::size_t len_name,
+                                         Storage &storage);
 
 /**
  * @brief search with the given key range and return the found tuples
@@ -249,9 +250,9 @@ Status read_from_scan(Token token, Storage storage, ScanHandle handle, Tuple **r
  * operation.
  */
 Status scan_key(Token token, Storage storage,  // NOLINT
-                       std::string_view left_key, bool l_exclusive,
-                       std::string_view right_key, bool r_exclusive,
-                       std::vector<const Tuple *> &result);
+                std::string_view left_key, bool l_exclusive,
+                std::string_view right_key, bool r_exclusive,
+                std::vector<const Tuple*> &result);
 
 /**
  * @brief This function checks the size resulted at open_scan with the @a
@@ -288,7 +289,7 @@ Status scan_key(Token token, Storage storage,  // NOLINT
  * operation of concurrent transaction.
  */
 Status search_key(Token token, Storage storage,  // NOLINT
-                         std::string_view key, Tuple **tuple);
+                  std::string_view key, Tuple** tuple);
 
 /**
  * @brief Recovery by single thread.
@@ -312,7 +313,8 @@ Status search_key(Token token, Storage storage,  // NOLINT
  * so it update the value which is going to be updated.
  */
 Status update(Token token, Storage st, std::string_view key, std::string_view val, std::align_val_t val_align);
-Status update(Token token, Storage st, Tuple&& tuple);
+
+Status update(Token token, Storage st, Tuple &&tuple);
 
 /**
  * @brief update the record for the given key, or insert the key/value if the
@@ -327,6 +329,7 @@ Status update(Token token, Storage st, Tuple&& tuple);
  * insert/update/upsert, so it overwrite its local write set.
  */
 Status upsert(Token token, Storage st, std::string_view key, std::string_view val, std::align_val_t val_align);
-Status upsert(Token token, Storage st, Tuple&& tuple);
+
+Status upsert(Token token, Storage st, Tuple &&tuple);
 
 }  // namespace ccbench

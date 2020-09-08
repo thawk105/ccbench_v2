@@ -35,21 +35,23 @@ template<size_t N>
 struct SimpleKey {
     char data[N]; // not null-terminated.
 
-    char *ptr() { return &data[0]; }
+    char* ptr() { return &data[0]; }
 
-    [[nodiscard]] const char *ptr() const { return &data[0]; }
+    [[nodiscard]] const char* ptr() const { return &data[0]; }
 
     [[nodiscard]] std::string_view view() const {
         return std::string_view(&data[0], N);
     }
 
-    [[nodiscard]] int compare(const SimpleKey& rhs) const {
+    [[nodiscard]] int compare(const SimpleKey &rhs) const {
         return ::memcmp(data, rhs.data, N);
     }
-    bool operator<(const SimpleKey& rhs) const {
+
+    bool operator<(const SimpleKey &rhs) const {
         return compare(rhs) < 0;
     }
-    bool operator==(const SimpleKey& rhs) const {
+
+    bool operator==(const SimpleKey &rhs) const {
         return compare(rhs) == 0;
     }
 };
@@ -413,7 +415,7 @@ public:
      * @brief find record from masstree by using args informations.
      * @return the found record pointer.
      */
-    static void *find_record(Storage st, std::string_view key);
+    static void* find_record(Storage st, std::string_view key);
 
     static masstree_wrapper<Record> &get_mtdb(Storage st) {
         return MTDB.at(static_cast<std::uint32_t>(st));
@@ -429,7 +431,7 @@ public:
      * exists in masstree, so this function returned immediately.
      * @return Status::OK It inserted record.
      */
-    static Status insert_record(Storage st, std::string_view key, Record *record); // NOLINT
+    static Status insert_record(Storage st, std::string_view key, Record* record); // NOLINT
 
 private:
     static inline std::array<masstree_wrapper<Record>, db_length> MTDB;  // NOLINT

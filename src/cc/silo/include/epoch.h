@@ -45,7 +45,7 @@ inline std::atomic<bool> kEpochThreadEnd;          // NOLINT
 [[maybe_unused]] extern void epocher();
 
 [[maybe_unused]] static epoch::epoch_t get_reclamation_epoch() {  // NOLINT
-  return loadAcquire(kReclamationEpoch);
+    return loadAcquire(kReclamationEpoch);
 }
 
 /**
@@ -53,26 +53,25 @@ inline std::atomic<bool> kEpochThreadEnd;          // NOLINT
  * @post invoke fin() to join this thread.
  */
 [[maybe_unused]] static void invoke_epocher() {
-  kEpochThreadEnd.store(false, std::memory_order_release);
-  kEpochThread = std::thread(epocher);
+    kEpochThreadEnd.store(false, std::memory_order_release);
+    kEpochThread = std::thread(epocher);
 }
 
 [[maybe_unused]] static void join_epoch_thread() { kEpochThread.join(); }
 
 [[maybe_unused]] static std::uint32_t load_acquire_global_epoch() {  // NOLINT
-  return loadAcquire(epoch::kGlobalEpoch);
+    return loadAcquire(epoch::kGlobalEpoch);
 }
 
 [[maybe_unused]] static void set_epoch_thread_end(bool tf) {
-  kEpochThreadEnd.store(tf, std::memory_order_release);
+    kEpochThreadEnd.store(tf, std::memory_order_release);
 }
 
 
 alignas(CACHE_LINE_SIZE) inline time_t timestamp_;
 
 
-[[maybe_unused]] inline time_t get_lightweight_timestamp()
-{
+[[maybe_unused]] inline time_t get_lightweight_timestamp() {
     return loadAcquire(timestamp_);
 }
 

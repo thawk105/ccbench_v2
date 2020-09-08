@@ -18,23 +18,23 @@ void displayRusageRUMaxrss() {
 }
 
 void Result::displayAbortCounts() {
-  cout << "abort_counts_:\t" << total_abort_counts_ << endl;
+    cout << "abort_counts_:\t" << total_abort_counts_ << endl;
 }
 
 void Result::displayAbortRate() {
-  long double ave_rate = (double) total_abort_counts_ /
-                         (double) (total_commit_counts_ + total_abort_counts_);
-  cout << fixed << setprecision(4) << "abort_rate:\t" << ave_rate << endl;
+    long double ave_rate = (double) total_abort_counts_ /
+                           (double) (total_commit_counts_ + total_abort_counts_);
+    cout << fixed << setprecision(4) << "abort_rate:\t" << ave_rate << endl;
 }
 
 void Result::displayCommitCounts() {
-  cout << "commit_counts_:\t" << total_commit_counts_ << endl;
+    cout << "commit_counts_:\t" << total_commit_counts_ << endl;
 }
 
 void Result::displayTps(size_t extime, size_t thread_num) {
-  uint64_t result = total_commit_counts_ / extime;
-  cout << "latency[ns]:\t" << powl(10.0, 9.0) / result * thread_num << endl;
-  cout << "throughput[tps]:\t" << result << endl;
+    uint64_t result = total_commit_counts_ / extime;
+    cout << "latency[ns]:\t" << powl(10.0, 9.0) / result * thread_num << endl;
+    cout << "throughput[tps]:\t" << result << endl;
 }
 
 #if ADD_ANALYSIS
@@ -310,11 +310,11 @@ void Result::displayWriteLatencyRate(size_t clocks_per_us, size_t extime,
 #endif
 
 void Result::addLocalAbortCounts(const uint64_t count) {
-  total_abort_counts_ += count;
+    total_abort_counts_ += count;
 }
 
 void Result::addLocalCommitCounts(const uint64_t count) {
-  total_commit_counts_ += count;
+    total_commit_counts_ += count;
 }
 
 #if ADD_ANALYSIS
@@ -431,78 +431,78 @@ void Result::displayAllResult([[maybe_unused]] size_t clocks_per_us,
                               size_t extime,
                               [[maybe_unused]] size_t thread_num) {
 #if ADD_ANALYSIS
-  displayAbortByOperationRate();
-  displayAbortByValidationRate();
-  displayCommitLatencyRate(clocks_per_us, extime, thread_num);
-  displayBackoffLatencyRate(clocks_per_us, extime, thread_num);
-  displayEarlyAbortRate();
-  displayExtraReads();
-  displayGCCounts();
-  displayGCLatencyRate(clocks_per_us, extime, thread_num);
-  displayGCTMTElementsCounts();
-  displayGCVersionCounts();
-  displayMakeProcedureLatencyRate(clocks_per_us, extime, thread_num);
-  displayMemcpys();
-  displayOtherWorkLatencyRate(clocks_per_us, extime, thread_num);
-  displayPreemptiveAbortsCounts();
-  displayRatioOfPreemptiveAbortToTotalAbort();
-  displayReadLatencyRate(clocks_per_us, extime, thread_num);
-  displayRtsupdRate();
-  displayTemperatureResets();
-  displayTimestampHistorySuccessCounts();
-  displayTimestampHistoryFailCounts();
-  displayTMTElementMalloc();
-  displayTMTElementReuse();
-  displayTreeTraversal();
-  displayWriteLatencyRate(clocks_per_us, extime, thread_num);
-  displayValiLatencyRate(clocks_per_us, extime, thread_num);
-  displayValidationFailureByTidRate();
-  displayValidationFailureByWritelockRate();
-  displayVersionMalloc();
-  displayVersionReuse();
+    displayAbortByOperationRate();
+    displayAbortByValidationRate();
+    displayCommitLatencyRate(clocks_per_us, extime, thread_num);
+    displayBackoffLatencyRate(clocks_per_us, extime, thread_num);
+    displayEarlyAbortRate();
+    displayExtraReads();
+    displayGCCounts();
+    displayGCLatencyRate(clocks_per_us, extime, thread_num);
+    displayGCTMTElementsCounts();
+    displayGCVersionCounts();
+    displayMakeProcedureLatencyRate(clocks_per_us, extime, thread_num);
+    displayMemcpys();
+    displayOtherWorkLatencyRate(clocks_per_us, extime, thread_num);
+    displayPreemptiveAbortsCounts();
+    displayRatioOfPreemptiveAbortToTotalAbort();
+    displayReadLatencyRate(clocks_per_us, extime, thread_num);
+    displayRtsupdRate();
+    displayTemperatureResets();
+    displayTimestampHistorySuccessCounts();
+    displayTimestampHistoryFailCounts();
+    displayTMTElementMalloc();
+    displayTMTElementReuse();
+    displayTreeTraversal();
+    displayWriteLatencyRate(clocks_per_us, extime, thread_num);
+    displayValiLatencyRate(clocks_per_us, extime, thread_num);
+    displayValidationFailureByTidRate();
+    displayValidationFailureByWritelockRate();
+    displayVersionMalloc();
+    displayVersionReuse();
 #endif
-  displayAbortCounts();
-  displayCommitCounts();
-  displayRusageRUMaxrss();
-  displayAbortRate();
-  displayTps(extime, thread_num);
+    displayAbortCounts();
+    displayCommitCounts();
+    displayRusageRUMaxrss();
+    displayAbortRate();
+    displayTps(extime, thread_num);
 }
 
 void Result::addLocalAllResult(const Result &other) {
-  addLocalAbortCounts(other.local_abort_counts_);
-  addLocalCommitCounts(other.local_commit_counts_);
+    addLocalAbortCounts(other.local_abort_counts_);
+    addLocalCommitCounts(other.local_commit_counts_);
 #if ADD_ANALYSIS
-  addLocalAbortByOperation(other.local_abort_by_operation_);
-  addLocalAbortByValidation(other.local_abort_by_validation_);
-  addLocalBackoffLatency(other.local_backoff_latency_);
-  addLocalCommitLatency(other.local_commit_latency_);
-  addLocalEarlyAborts(other.local_early_aborts_);
-  addLocalExtraReads(other.local_extra_reads_);
-  addLocalGCCounts(other.local_gc_counts_);
-  addLocalGCLatency(other.local_gc_latency_);
-  addLocalGCVersionCounts(other.local_gc_version_counts_);
-  addLocalGCTMTElementsCounts(other.local_gc_TMT_elements_counts_);
-  addLocalMakeProcedureLatency(other.local_make_procedure_latency_);
-  addLocalMemcpys(other.local_memcpys);
-  addLocalPreemptiveAbortsCounts(other.local_preemptive_aborts_counts_);
-  addLocalReadLatency(other.local_read_latency_);
-  addLocalRtsupd(other.local_rtsupd_);
-  addLocalRtsupdChances(other.local_rtsupd_chances_);
-  addLocalTimestampHistorySuccessCounts(
-      other.local_timestamp_history_success_counts_);
-  addLocalTimestampHistoryFailCounts(
-      other.local_timestamp_history_fail_counts_);
-  addLocalTemperatureResets(other.local_temperature_resets_);
-  addLocalTreeTraversal(other.local_tree_traversal_);
-  addLocalTMTElementsMalloc(other.local_TMT_element_malloc_);
-  addLocalTMTElementsReuse(other.local_TMT_element_reuse_);
-  addLocalWriteLatency(other.local_write_latency_);
-  addLocalValiLatency(other.local_vali_latency_);
-  addLocalValidationFailureByTid(other.local_validation_failure_by_tid_);
-  addLocalValidationFailureByWritelock(
-      other.local_validation_failure_by_writelock_);
-  addLocalVersionMalloc(other.local_version_malloc_);
-  addLocalVersionReuse(other.local_version_reuse_);
+    addLocalAbortByOperation(other.local_abort_by_operation_);
+    addLocalAbortByValidation(other.local_abort_by_validation_);
+    addLocalBackoffLatency(other.local_backoff_latency_);
+    addLocalCommitLatency(other.local_commit_latency_);
+    addLocalEarlyAborts(other.local_early_aborts_);
+    addLocalExtraReads(other.local_extra_reads_);
+    addLocalGCCounts(other.local_gc_counts_);
+    addLocalGCLatency(other.local_gc_latency_);
+    addLocalGCVersionCounts(other.local_gc_version_counts_);
+    addLocalGCTMTElementsCounts(other.local_gc_TMT_elements_counts_);
+    addLocalMakeProcedureLatency(other.local_make_procedure_latency_);
+    addLocalMemcpys(other.local_memcpys);
+    addLocalPreemptiveAbortsCounts(other.local_preemptive_aborts_counts_);
+    addLocalReadLatency(other.local_read_latency_);
+    addLocalRtsupd(other.local_rtsupd_);
+    addLocalRtsupdChances(other.local_rtsupd_chances_);
+    addLocalTimestampHistorySuccessCounts(
+        other.local_timestamp_history_success_counts_);
+    addLocalTimestampHistoryFailCounts(
+        other.local_timestamp_history_fail_counts_);
+    addLocalTemperatureResets(other.local_temperature_resets_);
+    addLocalTreeTraversal(other.local_tree_traversal_);
+    addLocalTMTElementsMalloc(other.local_TMT_element_malloc_);
+    addLocalTMTElementsReuse(other.local_TMT_element_reuse_);
+    addLocalWriteLatency(other.local_write_latency_);
+    addLocalValiLatency(other.local_vali_latency_);
+    addLocalValidationFailureByTid(other.local_validation_failure_by_tid_);
+    addLocalValidationFailureByWritelock(
+        other.local_validation_failure_by_writelock_);
+    addLocalVersionMalloc(other.local_version_malloc_);
+    addLocalVersionReuse(other.local_version_reuse_);
 #endif
 }
 

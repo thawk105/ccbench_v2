@@ -14,8 +14,8 @@ class tpcc_tables_test : public ::testing::Test {
 };
 
 TEST_F(tpcc_tables_test, tpcc_table) { // NOLINT
-  // TODO
-  ASSERT_EQ(true, true);
+    // TODO
+    ASSERT_EQ(true, true);
 }
 
 } // namespace ccbench::testing

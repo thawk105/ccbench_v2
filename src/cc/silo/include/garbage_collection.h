@@ -19,15 +19,15 @@
 
 namespace ccbench::garbage_collection {
 
-using RecPtrContainer = std::deque<Record *>;
+using RecPtrContainer = std::deque<Record*>;
 
 using ObjEpochInfo = std::pair<HeapObject, epoch::epoch_t>;
 using ObjEpochContainer = std::deque<ObjEpochInfo>;
 
 alignas(CACHE_LINE_SIZE) inline std::array< // NOLINT
-    RecPtrContainer, KVS_NUMBER_OF_LOGICAL_CORES> kGarbageRecords; // NOLINT
+        RecPtrContainer, KVS_NUMBER_OF_LOGICAL_CORES> kGarbageRecords; // NOLINT
 alignas(CACHE_LINE_SIZE) inline std::array< // NOLINT
-    ObjEpochContainer, KVS_NUMBER_OF_LOGICAL_CORES> kGarbageValues; // NOLINT
+        ObjEpochContainer, KVS_NUMBER_OF_LOGICAL_CORES> kGarbageValues; // NOLINT
 
 /**
  * @brief Delete RecPtrContainer kGarbageRecords at
@@ -46,11 +46,11 @@ extern void delete_all_garbage_records();
 extern void delete_all_garbage_values();
 
 [[maybe_unused]] static RecPtrContainer &get_garbage_records_at(std::size_t index) {  // NOLINT
-  return kGarbageRecords.at(index);
+    return kGarbageRecords.at(index);
 }
 
 [[maybe_unused]] static ObjEpochContainer &get_garbage_values_at(std::size_t index) {  // NOLINT
-  return kGarbageValues.at(index);
+    return kGarbageValues.at(index);
 }
 
 /**
