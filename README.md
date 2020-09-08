@@ -1,6 +1,9 @@
 # CCBench_v2 : Redesign and Implement Many Concurrency Control
 ![build_and_test](https://github.com/thawk105/ccbench_v2/workflows/build_and_test/badge.svg)
 
+The following repository is the predecessor of this repository.<br>
+https://github.com/thawk105/ccbench
+
 ---
 
 ## Installing a binary distribution package
