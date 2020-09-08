@@ -76,5 +76,4 @@ alignas(CACHE_LINE_SIZE) inline time_t timestamp_;
     return loadAcquire(timestamp_);
 }
 
-
 }  // namespace ccbench::epoch

@@ -6,14 +6,23 @@
 #include <bitset>
 
 #include "atomic_wrapper.h"
+
+// about cc
 #include "cc/silo/include/garbage_collection.h"
 #include "cc/silo/interface/interface_helper.h"
-#include "masstree_beta_wrapper.h"
+
+// about index
+#include "index/masstree_beta/include/masstree_beta_wrapper.h"
+
+// about bench
+#ifdef BENCH_TPCC
+#include "benchmark/tpcc/include/tpcc_tables.hpp"
+using namespace ccbench::TPCC;
+#endif
 
 namespace ccbench {
 
 namespace interface {
-
 
 write_set_obj* prepare_insert_or_update_or_upsert(Token token, Storage storage, std::string_view key, session_info*& ti)
 {
@@ -23,7 +32,7 @@ write_set_obj* prepare_insert_or_update_or_upsert(Token token, Storage storage, 
 }
 
 
-} // namepsace interface
+} // namespace interface
 
 
 template <typename KeyFunc, typename TupleFunc, typename ObjFunc>

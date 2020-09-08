@@ -11,6 +11,7 @@
 namespace ccbench::testing {
 
 using namespace ccbench;
+using namespace ccbench::TPCC;
 using namespace TPCC::Initializer;
 
 class tpcc_initializer_test : public ::testing::Test {

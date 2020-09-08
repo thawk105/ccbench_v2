@@ -35,8 +35,6 @@ target_include_directories(bench.exe
         PRIVATE ${PROJECT_SOURCE_DIR}/third_party
         PRIVATE ${PROJECT_SOURCE_DIR}/src
         PRIVATE ${PROJECT_SOURCE_DIR}/src/include
-        PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
-        PRIVATE ${PROJECT_SOURCE_DIR}/src/interface
         )
 
 target_link_libraries(bench.exe

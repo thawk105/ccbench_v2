@@ -3,10 +3,15 @@
  * @brief about garbage collection.
  */
 
+// about index
 #include "index/masstree_beta/include/masstree_beta_wrapper.h"
 
+// about cc
 #include "cc/silo/include/garbage_collection.h"
 #include "cc/silo/include/session_info.h"
+
+// about bench
+#include "benchmark/tpcc/include/tpcc_tables.hpp"
 
 namespace ccbench::garbage_collection {
 
@@ -18,12 +23,13 @@ namespace ccbench::garbage_collection {
 
 void remove_all_leaf_from_mt_db_and_release() {
   std::vector<const Record *> scan_res;
-  for (std::size_t i = 0; i < kohler_masstree::db_length; ++i) {
-    kohler_masstree::get_mtdb(static_cast<Storage>(i)).scan(nullptr, 0, false, nullptr, 0, false,
+#ifdef BENCH_TPCC
+  for (std::size_t i = 0; i < ccbench::TPCC::kohler_masstree::db_length; ++i) {
+    ccbench::TPCC::kohler_masstree::get_mtdb(static_cast<Storage>(i)).scan(nullptr, 0, false, nullptr, 0, false,
                                                             &scan_res, false);  // NOLINT
     for (auto &&itr : scan_res) {
       std::string_view key_view = itr->get_tuple().get_key();
-      kohler_masstree::get_mtdb(static_cast<Storage>(i)).remove_value(key_view.data(), key_view.size());
+      ccbench::TPCC::kohler_masstree::get_mtdb(static_cast<Storage>(i)).remove_value(key_view.data(), key_view.size());
       if (i == static_cast<int>(Storage::SECONDARY)) {
         std::vector<void *> *ctn_ptr;
         memcpy(&ctn_ptr,
@@ -37,10 +43,11 @@ void remove_all_leaf_from_mt_db_and_release() {
      * check whether index_kohler_masstree::get_mtdb() is empty.
      */
     scan_res.clear();
-    kohler_masstree::get_mtdb(static_cast<Storage>(i)).scan(nullptr, 0, false, nullptr, 0, false,
+    ccbench::TPCC::kohler_masstree::get_mtdb(static_cast<Storage>(i)).scan(nullptr, 0, false, nullptr, 0, false,
                                                             &scan_res, false);  // NOLINT
     if (!scan_res.empty()) std::abort();
   }
+#endif
 }
 
 void delete_all_garbage_records() {

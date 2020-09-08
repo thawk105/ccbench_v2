@@ -84,7 +84,7 @@ inline std::string_view str_view(const T &t) {
 }
 
 
-namespace TPCC {
+namespace ccbench::TPCC {
 
 
 struct Xoroshiro128PlusWrapper : Xoroshiro128Plus {

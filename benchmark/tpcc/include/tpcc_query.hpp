@@ -4,14 +4,16 @@
 
 #pragma once
 
-#include "../include/common.hh"
-#include "../include/random.hh"
-#include "../include/result.hh"
+#include "common.hh"
+#include "random.hh"
+#include "result.hh"
+
+#include "tpcc_tables.hpp"
 
 #define TPCC_SMALL  false
 #define LASTNAME_LEN  16
 
-namespace TPCC {
+namespace ccbench::TPCC {
 
 enum QueryType {
   Q_NONE,

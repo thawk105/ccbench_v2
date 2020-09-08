@@ -12,7 +12,6 @@
 #include <vector>
 
 #include "scheme_global.h"
-#include "tpcc_tables.hpp"
 
 #include "cc/silo/include/record.h"
 
@@ -270,35 +269,5 @@ __thread typename masstree_wrapper<T>::table_params::threadinfo_type *
         masstree_wrapper<T>::ti = nullptr;
 
 [[maybe_unused]] extern volatile bool recovering;
-
-class kohler_masstree {
-public:
-  static constexpr std::size_t db_length = 10;
-
-  /**
-   * @brief find record from masstree by using args informations.
-   * @return the found record pointer.
-   */
-  static void *find_record(Storage st, std::string_view key);
-
-  static masstree_wrapper<Record> &get_mtdb(Storage st) {
-    return MTDB.at(static_cast<std::uint32_t>(st));
-  }
-
-  /**
-   * @brief insert record to masstree by using args informations.
-   * @pre the record which has the same key as the key of args have never been
-   * inserted.
-   * @param key
-   * @param record It inserts this pointer to masstree database.
-   * @return WARN_ALREADY_EXISTS The records whose key is the same as @a key
-   * exists in masstree, so this function returned immediately.
-   * @return Status::OK It inserted record.
-   */
-  static Status insert_record(Storage st, std::string_view key, Record *record); // NOLINT
-
-private:
-  static inline std::array<masstree_wrapper<Record>, db_length> MTDB;  // NOLINT
-};
 
 }  // namespace ccbench

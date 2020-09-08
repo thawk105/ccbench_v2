@@ -1,15 +1,13 @@
-/**
- * @file payment.cpp
- */
-
+// about cc
 #include "cc/silo/interface/interface.h"
-#include "masstree_beta_wrapper.h"
+
+// about index
+#include "index/masstree_beta/include/masstree_beta_wrapper.h"
+
 #include "tpcc_query.hpp"
+#include "tpcc_tables.hpp"
 
-
-using namespace ccbench;
-
-namespace TPCC {
+namespace ccbench::TPCC {
 constexpr bool g_wh_update = true;
 
 bool run_payment(query::Payment *query, HistoryKeyGenerator *hkg, Token &token) {
@@ -31,7 +29,7 @@ bool run_payment(query::Payment *query, HistoryKeyGenerator *hkg, Token &token) 
   //   FROM warehouse
   //   WHERE w_id=:w_id;
   // +===================================================================*/
-  SimpleKey<8> wh_key;
+  SimpleKey<8> wh_key; // NOLINT
   TPCC::Warehouse::CreateKey(w_id, wh_key.ptr());
   stat = search_key(token, Storage::WAREHOUSE, wh_key.view(), &ret_tuple_ptr);
   if (stat == Status::WARN_CONCURRENT_DELETE || stat == Status::WARN_NOT_FOUND) {
@@ -44,7 +42,7 @@ bool run_payment(query::Payment *query, HistoryKeyGenerator *hkg, Token &token) 
   TPCC::Warehouse& wh = w_obj.ref();
   memcpy(&wh, ret_tuple_ptr->get_val().data(), sizeof(wh));
   double w_ytd = wh.W_YTD;
-  if (g_wh_update) {
+  if (g_wh_update) { // NOLINT
     wh.W_YTD = w_ytd + query->h_amount;
 
     stat = update(token, Storage::WAREHOUSE, Tuple(wh_key.view(), std::move(w_obj)));
@@ -62,7 +60,7 @@ bool run_payment(query::Payment *query, HistoryKeyGenerator *hkg, Token &token) 
   //   FROM district
   //   WHERE d_w_id=:w_id AND d_id=:d_id;
   // +====================================================================*/
-  SimpleKey<8> dist_key;
+  SimpleKey<8> dist_key; // NOLINT
   TPCC::District::CreateKey(w_id, d_id, dist_key.ptr());
   stat = search_key(token, Storage::DISTRICT, dist_key.view(), &ret_tuple_ptr);
   if (stat == Status::WARN_CONCURRENT_DELETE || stat == Status::WARN_NOT_FOUND) {
@@ -82,7 +80,7 @@ bool run_payment(query::Payment *query, HistoryKeyGenerator *hkg, Token &token) 
     return false;
   }
 
-  SimpleKey<8> cust_key;
+  SimpleKey<8> cust_key; // NOLINT
   if (query->by_last_name) {
     // ==========================================================
     // EXEC SQL SELECT count(c_id) INTO :namecnt

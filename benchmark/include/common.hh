@@ -5,7 +5,7 @@
 #include <iostream>
 #include <queue>
 
-//#include "tuple.hh"
+#include "tuple.h"
 
 #include "cpu.h"
 #include "int64byte.hh"
@@ -17,15 +17,9 @@
 #ifdef GLOBAL_VALUE_DEFINE
 #define GLOBAL
 alignas(CACHE_LINE_SIZE) GLOBAL uint64_t_64byte GlobalEpoch(1);
-#if MASSTREE_USE
-alignas(CACHE_LINE_SIZE) GLOBAL MasstreeWrapper<Tuple> MT;
-#endif
-#else
+#else // GLOBAL_VALUE_DEFINE
 #define GLOBAL extern
 alignas(CACHE_LINE_SIZE) GLOBAL uint64_t_64byte GlobalEpoch;
-#if MASSTREE_USE
-alignas(CACHE_LINE_SIZE) GLOBAL MasstreeWrapper<Tuple> MT;
-#endif
 #endif
 
 #ifdef GLOBAL_VALUE_DEFINE
@@ -53,9 +47,5 @@ DECLARE_uint64(perc_order_status);
 DECLARE_uint64(perc_delivery);
 DECLARE_uint64(perc_stock_level);
 #endif
-
-constexpr std::size_t DIST_PER_WARE{10};
-constexpr std::size_t MAX_ITEMS{100000};
-constexpr std::size_t CUST_PER_DIST{3000};
 
 //alignas(CACHE_LINE_SIZE) GLOBAL Tuple *Table;

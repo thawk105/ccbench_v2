@@ -41,51 +41,26 @@ foreach (src IN LISTS TEST_SOURCES)
     if (fname MATCHES "test$")
         set(test_name "${fname}.exe")
 
-        if ((fname MATCHES "unit_test$") OR
-        (fname MATCHES "tpcc_initializer_test"))
-            add_executable(${test_name} ${src} ${SILO_SOURCES})
+        add_executable(${test_name} ${src} ${SILO_SOURCES})
 
-            target_include_directories(${test_name}
-                    PRIVATE ${PROJECT_SOURCE_DIR}
-                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src/interface
-                    PRIVATE ${PROJECT_SOURCE_DIR}/third_party
-                    PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include
-                    )
+        target_include_directories(${test_name}
+                PRIVATE ${PROJECT_SOURCE_DIR}
+                PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/include
+                PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc/include
+                PRIVATE ${PROJECT_SOURCE_DIR}/src
+                PRIVATE ${PROJECT_SOURCE_DIR}/src/include
+                PRIVATE ${PROJECT_SOURCE_DIR}/third_party
+                PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include
+                )
 
-            target_link_libraries(${test_name}
-                    Boost::filesystem
-                    gflags::gflags
-                    ${PROJECT_SOURCE_DIR}/third_party/masstree/libkohler_masstree_json.a
-                    ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest.a
-                    ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest_main.a
-                    Threads::Threads
-                    )
-        else ()
-            add_executable(${test_name} ${src})
-
-            target_include_directories(${test_name}
-                    PRIVATE ${PROJECT_SOURCE_DIR}
-                    PRIVATE ${PROJECT_SOURCE_DIR}/benchmark/tpcc/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/include
-                    PRIVATE ${PROJECT_SOURCE_DIR}/src/index
-                    PRIVATE ${PROJECT_SOURCE_DIR}/third_party/googletest/googletest/include
-                    )
-
-            target_link_libraries(${test_name}
-                    gflags::gflags
-                    Threads::Threads
-                    ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest.a
-                    ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest_main.a
-                    )
-
-        endif ()
+        target_link_libraries(${test_name}
+                Boost::filesystem
+                gflags::gflags
+                ${PROJECT_SOURCE_DIR}/third_party/masstree/libkohler_masstree_json.a
+                ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest.a
+                ${PROJECT_SOURCE_DIR}/third_party/googletest/build/lib/libgtest_main.a
+                Threads::Threads
+                )
         set_compile_options(${test_name})
         add_test(
                 NAME ${test_name}

@@ -6,17 +6,17 @@
 
 #define GLOBAL_VALUE_DEFINE
 
+#include "clock.h"
 #include "common.hh"
+#include "random.hh"
 #include "result.hh"
 #include "util.hh"
 
-#include "random.hh"
-
+#ifdef BENCH_TPCC
 #include "tpcc/include/tpcc_initializer.hpp"
 #include "tpcc/include/tpcc_query.hpp"
 #include "tpcc/include/tpcc_txn.hpp"
-#include "clock.h"
-
+#endif
 
 using namespace std;
 

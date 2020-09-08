@@ -2,12 +2,21 @@
  * @file helper.cpp
  */
 
+#include "boost/filesystem.hpp"
+
+// about cc
 #include "cc/silo/include/garbage_collection.h"
 #include "cc/silo/include/session_info_table.h"
 #include "cc/silo/interface/interface_helper.h"
 
-#include "masstree_beta_wrapper.h"
-#include "boost/filesystem.hpp"
+// about index
+#include "index/masstree_beta/include/masstree_beta_wrapper.h"
+
+// about benchmark
+#ifdef BENCH_TPCC
+#include "benchmark/tpcc/include/tpcc_tables.hpp"
+using namespace ccbench::TPCC;
+#endif
 
 namespace ccbench {
 
@@ -188,8 +197,10 @@ void write_phase(session_info *ti, const tid_word &max_r_set,
         tid_word delete_tid = max_tid;
         delete_tid.set_absent(true);
         std::string_view key_view = rec_ptr->get_tuple().get_key();
+#ifdef BENCH_TPCC
         kohler_masstree::get_mtdb(iws->get_st()).remove_value(key_view.data(),
                                                               key_view.size());
+#endif
         storeRelease(rec_ptr->get_tidw().get_obj(), delete_tid.get_obj());
 
         /**

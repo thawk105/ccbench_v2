@@ -1,8 +1,5 @@
-/**
- * @file tpcc_query.cpp
- */
-
 #include <cstring>
+
 #include "tpcc_query.hpp"
 #include "tpcc_util.hpp"
 
@@ -18,7 +15,7 @@
 #endif
 
 
-namespace TPCC {
+namespace ccbench::TPCC {
 
 
 void query::NewOrder::generate([[maybe_unused]]uint16_t w_id0, query::Option &opt) {

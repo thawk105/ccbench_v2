@@ -6,7 +6,15 @@
 #include <map>
 
 #include "interface_helper.h"
-#include "masstree_beta_wrapper.h"
+
+// about index
+#include "index/masstree_beta/include/masstree_beta_wrapper.h"
+
+// about bench
+#ifdef BENCH_TPCC
+#include "benchmark/tpcc/include/tpcc_tables.hpp"
+using namespace ccbench::TPCC;
+#endif
 
 namespace ccbench {
 

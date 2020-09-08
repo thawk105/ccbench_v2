@@ -1,10 +1,12 @@
+// about cc
 #include "cc/silo/interface/interface.h"
-#include "masstree_beta_wrapper.h"
+
 #include "tpcc_query.hpp"
+#include "tpcc_tables.hpp"
 
 using namespace ccbench;
 
-namespace TPCC {
+namespace ccbench::TPCC {
 
 bool
 run_new_order(TPCC::query::NewOrder *query, Token &token) {
@@ -24,7 +26,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
     WHERE w_id = :w_id AND c_w_id = w_id AND c_d_id = :d_id AND c_id = :c_id;
     +========================================================================*/
   TPCC::Warehouse *wh;
-  SimpleKey<8> wh_key;
+  SimpleKey<8> wh_key; // NOLINT
   TPCC::Warehouse::CreateKey(w_id, wh_key.ptr());
   // index = _wl->i_warehouse;
   // item = index_read(index, key, wh_to_part(w_id));
@@ -40,7 +42,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
   [[maybe_unused]] double w_tax = wh->W_TAX;
   //uint64_t key = custKey(c_id, d_id, w_id);
   TPCC::Customer *cust;
-  SimpleKey<8> cust_key;
+  SimpleKey<8> cust_key; // NOLINT
   TPCC::Customer::CreateKey(w_id, d_id, c_id, cust_key.ptr());
   stat = search_key(token, Storage::CUSTOMER, cust_key.view(), &ret_tuple_ptr);
   if (stat == Status::WARN_CONCURRENT_DELETE || stat == Status::WARN_NOT_FOUND) {
@@ -60,7 +62,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
     EXEC SQL UPDATE district SET d_next_o_id = :d_next_o_id + 1
     WHERE d_id = :d_id AND d_w_id = :w_id ;
     +===================================================*/
-  SimpleKey<8> dist_key;
+  SimpleKey<8> dist_key; // NOLINT
   TPCC::District::CreateKey(w_id, d_id, dist_key.ptr());
   stat = search_key(token, Storage::DISTRICT, dist_key.view(), &ret_tuple_ptr);
   if (stat == Status::WARN_CONCURRENT_DELETE || stat == Status::WARN_NOT_FOUND) {
@@ -98,7 +100,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
   order.O_ENTRY_D = ccbench::epoch::get_lightweight_timestamp();
   order.O_OL_CNT = ol_cnt;
   order.O_ALL_LOCAL = (remote ? 0 : 1);
-  SimpleKey<8> order_key;
+  SimpleKey<8> order_key; // NOLINT
   TPCC::Order::CreateKey(order.O_W_ID, order.O_D_ID, order.O_ID, order_key.ptr());
   stat = insert(token, Storage::ORDER, Tuple(order_key.view(), std::move(order_obj)));
   if (stat == Status::WARN_NOT_FOUND) {
@@ -117,7 +119,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
   neworder.NO_O_ID = o_id;
   neworder.NO_D_ID = d_id;
   neworder.NO_W_ID = w_id;
-  SimpleKey<8> no_key;
+  SimpleKey<8> no_key; // NOLINT
   TPCC::NewOrder::CreateKey(neworder.NO_W_ID, neworder.NO_D_ID, neworder.NO_O_ID, no_key.ptr());
   stat = insert(token, Storage::NEWORDER, Tuple(no_key.view(), std::move(no_obj)));
   if (stat == Status::WARN_NOT_FOUND) {
@@ -144,7 +146,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
      */
 
     TPCC::Item *item;
-    SimpleKey<8> item_key;
+    SimpleKey<8> item_key; // NOLINT
     TPCC::Item::CreateKey(ol_i_id, item_key.ptr());
     stat = search_key(token, Storage::ITEM, item_key.view(), &ret_tuple_ptr);
     if (stat == Status::WARN_CONCURRENT_DELETE || stat == Status::WARN_NOT_FOUND) {
@@ -171,7 +173,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
       AND s_w_id = :ol_supply_w_id;
       +===============================================*/
 
-    SimpleKey<8> stock_key;
+    SimpleKey<8> stock_key; // NOLINT
     TPCC::Stock::CreateKey(ol_supply_w_id, ol_i_id, stock_key.ptr());
     stat = search_key(token, Storage::STOCK, stock_key.view(), &ret_tuple_ptr);
     if (stat == Status::WARN_CONCURRENT_DELETE || stat == Status::WARN_NOT_FOUND) {
@@ -276,7 +278,7 @@ run_new_order(TPCC::query::NewOrder *query, Token &token) {
 #endif
 
     // The number of keys is enough? It is different from DBx1000
-    SimpleKey<8> ol_key;
+    SimpleKey<8> ol_key; // NOLINT
     TPCC::OrderLine::CreateKey(orderline.OL_W_ID, orderline.OL_D_ID, orderline.OL_O_ID,
                                orderline.OL_NUMBER, ol_key.ptr());
     stat = insert(token, Storage::ORDERLINE, Tuple(ol_key.view(), std::move(ol_obj)));

@@ -5,8 +5,14 @@
 
 #include "include/session_info.h"
 
-#include "cc/silo/include/garbage_collection.h"
+// about index
 #include "index/masstree_beta/include/masstree_beta_wrapper.h"
+
+// about bench
+#ifdef BENCH_TPCC
+#include "benchmark/tpcc/include/tpcc_tables.hpp"
+using namespace ccbench::TPCC;
+#endif
 
 namespace ccbench {
 

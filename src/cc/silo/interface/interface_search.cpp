@@ -1,11 +1,18 @@
-#include "masstree_beta_wrapper.h"
-#include "cc/silo/interface/interface_helper.h"
-#include "cc/silo/interface/interface.h"  // NOLINT
 
+// about cc
+#include "cc/silo/interface/interface_helper.h"
 #include "cc/silo/include/session_info_table.h"
 
-namespace ccbench {
+// about index
+#include "index/masstree_beta/include/masstree_beta_wrapper.h"
 
+// about bench
+#ifdef BENCH_TPCC
+#include "benchmark/tpcc/include/tpcc_tables.hpp"
+using namespace ccbench::TPCC;
+#endif
+
+namespace ccbench {
 
 Status search_key_local_set(session_info *ti, Storage storage, std::string_view key, Tuple **tuple)
 {
