@@ -2,28 +2,34 @@
 #include <cstring>
 #include <algorithm>
 
-#include "cpu.h"
-
 #define GLOBAL_VALUE_DEFINE
 
 #include "clock.h"
 #include "common.hh"
+#include "cpu.h"
 #include "random.hh"
 #include "result.hh"
 #include "util.hh"
 
 #ifdef BENCH_TPCC
-
 #include "tpcc/include/tpcc_initializer.hpp"
 #include "tpcc/include/tpcc_query.hpp"
 #include "tpcc/include/tpcc_txn.hpp"
+#endif
+
+#ifdef BENCH_YCSB
+
+#include "ycsb_table.h"
+// about cc
+#include "cc/silo/interface/interface.h"
 
 #endif
 
+
 using namespace std;
+using namespace ccbench;
 
 void worker(size_t thid, char &ready, const bool &start, const bool &quit) try {
-
 #ifdef CCBENCH_LINUX
     ccbench::setThreadAffinity(thid);
 #endif
@@ -31,13 +37,13 @@ void worker(size_t thid, char &ready, const bool &start, const bool &quit) try {
     std::uint64_t lcl_cmt_cnt{0};
     std::uint64_t lcl_abt_cnt{0};
 
-    TPCC::Query query;
     Token token{};
     enter(token);
-    TPCC::query::Option query_opt;
 
+#ifdef BENCH_TPCC
+    TPCC::Query query;
+    TPCC::query::Option query_opt;
     const uint16_t w_id = (thid % FLAGS_num_wh) + 1; // home warehouse.
-#if 1
     // Load per warehouse if necessary.
     // thid in [0, num_th - 1].
     // w_id in [1, FLAGS_num_wh].
@@ -51,15 +57,15 @@ void worker(size_t thid, char &ready, const bool &start, const bool &quit) try {
         //::printf("load for warehouse %u done.\n", id);
         id += FLAGS_thread_num;
     }
-#endif
 
     TPCC::HistoryKeyGenerator hkg{};
     hkg.init(thid, true);
+#endif
 
     storeRelease(ready, 1);
     while (!loadAcquire(start)) _mm_pause();
     while (!loadAcquire(quit)) {
-
+#ifdef BENCH_TPCC
         query.generate(w_id, query_opt);
 
         // TODO : add backoff work.
@@ -95,6 +101,9 @@ void worker(size_t thid, char &ready, const bool &start, const bool &quit) try {
         } else {
             ++lcl_abt_cnt;
         }
+#endif // BENCH_TPCC
+#ifdef BENCH_YCSB
+#endif
     }
     leave(token);
     SiloResult[thid].local_commit_counts_ = lcl_cmt_cnt;
@@ -110,11 +119,12 @@ int main(int argc, char* argv[]) try {
     chkArg();
     init();
     ccbench::StopWatch stopwatch;
-#if 0
-    TPCC::Initializer::load();
-#else
+#ifdef BENCH_TPCC
     TPCC::Initializer::load_item();
     // The remaining load will be processed by each worker threads.
+#endif
+#ifdef BENCH_YCSB
+//todo : initialize db table
 #endif
 
     alignas(CACHE_LINE_SIZE) bool start = false;

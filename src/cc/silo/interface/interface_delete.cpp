@@ -22,6 +22,12 @@
 using namespace ccbench::TPCC;
 #endif
 
+#ifdef BENCH_YCSB
+
+#include "benchmark/include/ycsb_table.h"
+
+#endif
+
 namespace ccbench {
 
 [[maybe_unused]] Status delete_all_records() {  // NOLINT
@@ -41,7 +47,12 @@ Status delete_record(Token token, Storage st, std::string_view key) {
 
     masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
     Record* rec_ptr{
+#ifdef BENCH_TPCC
             static_cast<Record*>(kohler_masstree::get_mtdb(st).get_value(key))};
+#endif
+#ifdef BENCH_YCSB
+            static_cast<Record*>(kohler_masstree::find_record(key))};
+#endif
     if (rec_ptr == nullptr) {
         return Status::WARN_NOT_FOUND;
     }

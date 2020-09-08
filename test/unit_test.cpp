@@ -35,6 +35,7 @@ TEST_F(unit_test, direct_db_access) { // NOLINT
     HeapObject obj;
     obj.allocate(b.size());
     ::memcpy(obj.data(), &b[0], b.size());
+#ifdef BENCH_TPCC
     auto* record_ptr = new Record{Tuple(a, std::move(obj))}; // NOLINT
     /**
      * If Status::OK is returned, the ownership of the memory moves to kohler_masstree,
@@ -46,6 +47,7 @@ TEST_F(unit_test, direct_db_access) { // NOLINT
     ASSERT_NE(got_rec_ptr, nullptr);
     ASSERT_EQ(got_rec_ptr->get_tuple().get_key(), std::string_view(a));
     ASSERT_EQ(got_rec_ptr->get_tuple().get_val(), std::string_view(b));
+#endif // BENCH_TPCC
 }
 
 TEST_F(unit_test, tx_session_test) { // NOLINT
