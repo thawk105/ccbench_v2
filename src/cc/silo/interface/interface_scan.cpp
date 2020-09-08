@@ -16,6 +16,11 @@
 #include "benchmark/tpcc/include/tpcc_tables.hpp"
 
 using namespace ccbench::TPCC;
+
+#elif defined(BENCH_YCSB)
+
+#include "benchmark/include/ycsb_table.h"
+
 #endif
 
 namespace ccbench {
@@ -41,7 +46,7 @@ Status close_scan(Token token, [[maybe_unused]] Storage storage,  // NOLINT
     return Status::OK;
 }
 
-Status open_scan(Token token, Storage storage,  // NOLINT
+Status open_scan(Token token, [[maybe_unused]] Storage storage,  // NOLINT
                  std::string_view left_key, bool l_exclusive,
                  std::string_view right_key, bool r_exclusive,
                  ScanHandle &handle) {
@@ -50,10 +55,14 @@ Status open_scan(Token token, Storage storage,  // NOLINT
 
     std::vector<const Record*> scan_buf;
     masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+#ifdef BENCH_TPCC
     kohler_masstree::get_mtdb(storage).scan(
             left_key.empty() ? nullptr : left_key.data(), left_key.size(),
             l_exclusive, right_key.empty() ? nullptr : right_key.data(),
             right_key.size(), r_exclusive, &scan_buf, true);
+#elif defined(BENCH_YCSB)
+    kohler_masstree::scan(left_key, l_exclusive, right_key, r_exclusive, &scan_buf, true);
+#endif
 
     if (!scan_buf.empty()) {
         /**
@@ -112,6 +121,7 @@ Status read_from_scan(Token token, Storage storage, ScanHandle handle, Tuple** t
         const Tuple* tupleptr(&(scan_buf.back())->get_tuple());
         std::vector<const Record*> new_scan_buf;
         masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+#ifdef BENCH_TPCC
         kohler_masstree::get_mtdb(storage).scan(
                 tupleptr->get_key().empty() ? nullptr : tupleptr->get_key().data(),
                 tupleptr->get_key().size(), true,
@@ -119,6 +129,11 @@ Status read_from_scan(Token token, Storage storage, ScanHandle handle, Tuple** t
                                                 : ti->get_rkey()[handle].get(),
                 ti->get_len_rkey()[handle], ti->get_r_exclusive()[handle],
                 &new_scan_buf, true);
+#elif defined(BENCH_YCSB)
+        kohler_masstree::scan(tupleptr->get_key(), true,
+                              ti->get_len_rkey()[handle] == 0 ? "" : ti->get_rkey()[handle].get(),
+                              ti->get_r_exclusive()[handle], &new_scan_buf, true);
+#endif
 
         if (!new_scan_buf.empty()) {
             /**
@@ -183,10 +198,14 @@ Status scan_key(Token token, Storage storage,  // NOLINT
 
     std::vector<const Record*> scan_res;
     masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+#ifdef BENCH_TPCC
     kohler_masstree::get_mtdb(storage).scan(
             left_key.empty() ? nullptr : left_key.data(), left_key.size(),
             l_exclusive, right_key.empty() ? nullptr : right_key.data(),
             right_key.size(), r_exclusive, &scan_res, false);
+#elif defined(BENCH_YCSB)
+    kohler_masstree::scan(left_key, l_exclusive, right_key, r_exclusive, &scan_res, false);
+#endif
 
     for (auto &&itr : scan_res) {
         write_set_obj* inws = ti->search_write_set(storage, itr->get_tuple().get_key());

@@ -18,6 +18,10 @@
 #include "benchmark/tpcc/include/tpcc_tables.hpp"
 
 using namespace ccbench::TPCC;
+#elif defined(BENCH_YCSB)
+
+#include "benchmark/include/ycsb_table.h"
+
 #endif
 
 namespace ccbench {
@@ -200,8 +204,9 @@ void write_phase(session_info* ti, const tid_word &max_r_set,
                 delete_tid.set_absent(true);
                 std::string_view key_view = rec_ptr->get_tuple().get_key();
 #ifdef BENCH_TPCC
-                kohler_masstree::get_mtdb(iws->get_st()).remove_value(key_view.data(),
-                                                                      key_view.size());
+                kohler_masstree::get_mtdb(iws->get_st()).remove_value(key_view.data(), key_view.size());
+#elif defined(BENCH_YCSB)
+                kohler_masstree::remove_value(key_view);
 #endif
                 storeRelease(rec_ptr->get_tidw().get_obj(), delete_tid.get_obj());
 

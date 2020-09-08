@@ -53,6 +53,15 @@ void* kohler_masstree::find_record(std::string_view const key) {
     return MTDB.get_value(key.data(), key.size());
 }
 
+void
+kohler_masstree::scan(const std::string_view l_key, const bool l_exclusive, const std::string_view r_key,
+                      const bool r_exclusive, std::vector<const Record*>* res, const bool limited_scan) {
+    masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+    return MTDB.scan(l_key.empty() ? nullptr : l_key.data(), l_key.size(), l_exclusive,
+                     r_key.empty() ? nullptr : r_key.data(), r_key.size(), r_exclusive, res,
+                     limited_scan);
+}
+
 #endif
 
 }  // namespace shirakami

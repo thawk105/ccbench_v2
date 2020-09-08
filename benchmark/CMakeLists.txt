@@ -24,7 +24,11 @@ file(GLOB TPCC_SOURCES
         "tpcc/tpcc_query.cpp"
         )
 
-add_executable(bench.exe bench.cpp ${SILO_SOURCES} ${TPCC_SOURCES})
+if (BENCH_TPCC)
+    add_executable(bench.exe bench.cpp ${SILO_SOURCES} ${TPCC_SOURCES})
+elseif (BENCH_YCSB)
+    add_executable(bench.exe bench.cpp ${SILO_SOURCES})
+endif ()
 
 set_compile_options(bench.exe)
 

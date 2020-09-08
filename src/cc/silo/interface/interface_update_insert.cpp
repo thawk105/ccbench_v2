@@ -20,6 +20,10 @@
 #include "benchmark/tpcc/include/tpcc_tables.hpp"
 
 using namespace ccbench::TPCC;
+#elif defined(BENCH_YCSB)
+
+#include "benchmark/include/ycsb_table.h"
+
 #endif
 
 namespace ccbench {
@@ -38,7 +42,8 @@ prepare_insert_or_update_or_upsert(Token token, Storage storage, std::string_vie
 
 
 template<typename KeyFunc, typename TupleFunc, typename ObjFunc>
-Status insert_detail(Token token, Storage st, KeyFunc &&key_func, TupleFunc &&tuple_func, ObjFunc &&obj_func) {
+Status insert_detail(Token token, Storage st, KeyFunc &&key_func, TupleFunc &&tuple_func,
+                     ObjFunc &&obj_func) {
     session_info* ti;
     write_set_obj* inws = interface::prepare_insert_or_update_or_upsert(token, st, key_func(), ti);
     if (inws != nullptr) {
@@ -47,13 +52,21 @@ Status insert_detail(Token token, Storage st, KeyFunc &&key_func, TupleFunc &&tu
     }
 
     masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+#ifdef BENCH_TPCC
     if (kohler_masstree::find_record(st, key_func()) != nullptr) {
+#elif defined(BENCH_YCSB)
+    if (kohler_masstree::find_record(key_func()) != nullptr) {
+#endif
         return Status::WARN_ALREADY_EXISTS;
     }
 
     Record* rec = new Record(tuple_func());
     assert(rec != nullptr);
+#ifdef BENCH_TPCC
     Status insert_result = kohler_masstree::insert_record(st, rec->get_tuple().get_key(), rec);
+#elif defined(BENCH_YCSB)
+    Status insert_result = kohler_masstree::insert_record(rec->get_tuple().get_key(), rec);
+#endif
     if (insert_result == Status::OK) {
         ti->get_write_set().emplace_back(OP_TYPE::INSERT, st, rec);
         return Status::OK;
@@ -98,7 +111,11 @@ Status update_detail(Token token, Storage st, KeyFunc &&key_func, TupleFunc &&tu
 
     Record* rec_ptr;
     masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+#ifdef BENCH_TPCC
     rec_ptr = kohler_masstree::get_mtdb(st).get_value(key_func());
+#elif defined(BENCH_YCSB)
+    rec_ptr = static_cast<Record*>(kohler_masstree::find_record(key_func()));
+#endif
     if (rec_ptr == nullptr) {
         return Status::WARN_NOT_FOUND;
     }
@@ -144,10 +161,18 @@ Status upsert_detail(Token token, Storage st, KeyFunc &&key_func, TupleFunc &&tu
     }
 
     masstree_wrapper<Record>::thread_init(cached_sched_getcpu());
+#ifdef BENCH_TPCC
     Record* rec_ptr{static_cast<Record*>(kohler_masstree::kohler_masstree::find_record(st, key_func()))};
+#elif defined(BENCH_YCSB)
+    Record* rec_ptr{static_cast<Record*>(kohler_masstree::kohler_masstree::find_record(key_func()))};
+#endif
     if (rec_ptr == nullptr) {
         rec_ptr = new Record(tuple_func());
+#ifdef BENCH_TPCC
         Status insert_result = kohler_masstree::insert_record(st, rec_ptr->get_tuple().get_key(), rec_ptr);
+#elif defined(BENCH_YCSB)
+        Status insert_result = kohler_masstree::insert_record(rec_ptr->get_tuple().get_key(), rec_ptr);
+#endif
         if (insert_result == Status::OK) {
             ti->get_write_set().emplace_back(OP_TYPE::INSERT, st, rec_ptr);
             return Status::OK;

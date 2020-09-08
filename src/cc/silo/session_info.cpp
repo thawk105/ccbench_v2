@@ -14,6 +14,10 @@
 #include "benchmark/tpcc/include/tpcc_tables.hpp"
 
 using namespace ccbench::TPCC;
+#elif defined(BENCH_YCSB)
+
+#include "benchmark/include/ycsb_table.h"
+
 #endif
 
 namespace ccbench {
@@ -121,8 +125,11 @@ void session_info::remove_inserted_records_of_write_set_from_masstree() {
         if (itr.get_op() == OP_TYPE::INSERT) {
             Record* record = itr.get_rec_ptr();
             std::string_view key_view = record->get_tuple().get_key();
-            kohler_masstree::get_mtdb(itr.get_st()).remove_value(key_view.data(),
-                                                                 key_view.size());
+#ifdef BENCH_TPCC
+            kohler_masstree::get_mtdb(itr.get_st()).remove_value(key_view.data(), key_view.size());
+#elif defined(BENCH_YCSB)
+            kohler_masstree::remove_value(key_view);
+#endif
 
             /**
              * create information for garbage collection.

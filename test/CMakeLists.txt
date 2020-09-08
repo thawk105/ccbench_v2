@@ -18,11 +18,17 @@ file(GLOB SILO_SOURCES
 file(GLOB TEST_SOURCES
         "aligned_allocator_test.cpp"
         "scheme_global_test.cpp"
-        "tpcc/tpcc_initializer_test.cpp"
-        "tpcc/tpcc_tables_test.cpp"
-        "tpcc/tpcc_util_test.cpp"
         "unit_test.cpp"
         )
+
+if (BENCH_TPCC)
+    file(GLOB TPCC_TEST_SOURCES
+            "tpcc/tpcc_initializer_test.cpp"
+            "tpcc/tpcc_tables_test.cpp"
+            "tpcc/tpcc_util_test.cpp"
+            )
+    set(TEST_SOURCES ${TEST_SOURCES} ${TPCC_TEST_SOURCES})
+endif ()
 
 if (CMAKE_SYSTEM_NAME MATCHES "Linux")
     add_definitions(-DCCBENCH_LINUX)

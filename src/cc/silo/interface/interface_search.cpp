@@ -12,6 +12,10 @@
 #include "benchmark/tpcc/include/tpcc_tables.hpp"
 
 using namespace ccbench::TPCC;
+#elif defined(BENCH_YCSB)
+
+#include "benchmark/include/ycsb_table.h"
+
 #endif
 
 namespace ccbench {
@@ -45,7 +49,11 @@ Status search_key(Token token, Storage storage,  // NOLINT
     Status sta = search_key_local_set(ti, storage, key, tuple);
     if (sta != Status::OK) return sta;
 
+#ifdef BENCH_TPCC
     Record* rec_ptr{kohler_masstree::get_mtdb(storage).get_value(key.data(), key.size())};
+#elif defined(BENCH_YCSB)
+    Record* rec_ptr{static_cast<Record*>(kohler_masstree::find_record(key))};
+#endif
     if (rec_ptr == nullptr) {
         *tuple = nullptr;
         return Status::WARN_NOT_FOUND;
