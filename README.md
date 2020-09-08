@@ -4,7 +4,7 @@
 ---
 
 ## Installing a binary distribution package
-On Debian/Ubuntu Linux, execute below statement or bootstrap_apt.sh.
+On Debian/Ubuntu Linux, execute below statement.
 ```
 $ sudo apt update -y
 $ sudo apt-get install -y libgflags-dev libgoogle-glog-dev cmake cmake-curses-gui libboost-filesystem-dev
