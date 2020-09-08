@@ -7,7 +7,8 @@
 #include <cstdio>
 #include <cassert>
 #include <vector>
-#include "../include/random.hh"
+
+#include "random.hh"
 
 
 template<typename Int>

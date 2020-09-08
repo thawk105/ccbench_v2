@@ -2,6 +2,7 @@
 
 #include <chrono>
 #include <thread>
+#include <vector>
 
 #include "atomic_wrapper.h"
 

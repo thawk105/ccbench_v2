@@ -41,7 +41,25 @@ foreach (src IN LISTS TEST_SOURCES)
     if (fname MATCHES "test$")
         set(test_name "${fname}.exe")
 
-        add_executable(${test_name} ${src} ${SILO_SOURCES})
+        if (fname MATCHES "unit_test")
+            add_executable(
+                    ${test_name}
+                    ${src}
+                    ${SILO_SOURCES}
+            )
+        elseif ((fname MATCHES "tpcc_tables_test") OR (fname MATCHES "tpcc_initializer_test"))
+            add_executable(
+                    ${test_name}
+                    ${src}
+                    ${PROJECT_SOURCE_DIR}/src/cc/silo/epoch.cpp
+                    ${PROJECT_SOURCE_DIR}/src/index/masstree_beta/masstree_beta_wrapper.cpp
+            )
+        else ()
+            add_executable(
+                    ${test_name}
+                    ${src}
+            )
+        endif ()
 
         target_include_directories(${test_name}
                 PRIVATE ${PROJECT_SOURCE_DIR}
