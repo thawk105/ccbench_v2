@@ -14,8 +14,7 @@ $ sudo apt-get install -y libgflags-dev libgoogle-glog-dev cmake cmake-curses-gu
 ```
 $ git clone this_repository
 $ cd ccbench
-$ git submodule init
-$ git submodule update
+$ git submodule update --init --recursive
 ```
 - Processing of build_script_masstree.sh :<br>
 Build third_party/masstree.
@@ -26,22 +25,13 @@ Build third_party/masstree.
 ## Data Structure
 ### Masstree
 This is a submodule.  
-usage:  
-`git submodule init`  
-`git submodule update`  
-tanabe's wrapper is include/masstree\_wrapper.hpp
-
----
-
-## Experimental data
-https://github.com/thawk105/ccdata 
+tanabe's wrapper is src/index/masstree\_beta/include/masstree\_beta\_wrapper.hpp
 
 ---
 
 ## Details for improving performance
 - It uses xoroshiro128plus which is high performance random generator.
 - It is friendly to Linux vertual memory system.
-- It uses high performance memory allocator mimalloc/tbd appropriately.
 - It reduces memory management cost by our original technique.
 - It refrain from creating temporary objects to improve performance as much as possible.
 - It fixed bug of original cicada.
