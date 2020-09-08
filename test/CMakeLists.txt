@@ -18,9 +18,9 @@ file(GLOB SILO_SOURCES
 file(GLOB TEST_SOURCES
         "aligned_allocator_test.cpp"
         "scheme_global_test.cpp"
-        "tpcc_initializer_test.cpp"
-        "tpcc_tables_test.cpp"
-        "tpcc_util_test.cpp"
+        "tpcc/tpcc_initializer_test.cpp"
+        "tpcc/tpcc_tables_test.cpp"
+        "tpcc/tpcc_util_test.cpp"
         "unit_test.cpp"
         )
 
