@@ -20,8 +20,7 @@ jobs:
       - id: Install_apt
         name: Install_apt
         run: |
-          sudo apt update -y
-          sudo apt-get install -y libgflags-dev libgoogle-glog-dev cmake cmake-curses-gui libboost-filesystem-dev
+          sudo apt update -y && sudo apt-get install -y $(cat build_tools/ubuntu.deps)
 
       - id: Submodule_init_recursive
         name: Submodule_init_recursive
@@ -63,4 +62,4 @@ jobs:
           ASAN_OPTIONS: detect_stack_use_after_return=true
         run: |
           cd build/test
-          ctest --verbose --timeout 100
+          ctest --verbose --timeout 100 -j 100

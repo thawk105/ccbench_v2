@@ -9,17 +9,17 @@ https://github.com/thawk105/ccbench
 ## Installing a binary distribution package
 On Debian/Ubuntu Linux, execute below statement.
 ```
-$ sudo apt update -y
-$ sudo apt-get install -y libgflags-dev libgoogle-glog-dev cmake cmake-curses-gui libboost-filesystem-dev
+$ git clone --recurse-submodules this_repository
+$ cd ccbench_v2
+$ sudo apt update -y && sudo apt-get install -y $(cat build_tools/ubuntu.deps)
 ```
 
 ## Prepare using
+- Processing of build_tools/build_script_masstree.sh :<br>
 ```
-$ git clone this_repository
-$ cd ccbench
-$ git submodule update --init --recursive
+$ cd ccbench_v2
+$ ./build_tools/build_script_masstree.sh
 ```
-- Processing of build_script_masstree.sh :<br>
 Build third_party/masstree.
 - Build by referring to .github/workflows/build_and_test.yml. 
 
