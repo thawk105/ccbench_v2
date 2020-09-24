@@ -19,16 +19,19 @@ jobs:
 
       - id: Install_apt
         name: Install_apt
+        continue-on-error: false
         run: |
           sudo apt update -y && sudo apt-get install -y $(cat build_tools/ubuntu.deps)
 
       - id: Submodule_init_recursive
         name: Submodule_init_recursive
+        continue-on-error: false
         run: |
           git submodule update --init --recursive
 
       - id: Build_third_party_masstree
         name: Build_third_party_masstree
+        continue-on-error: false
         run: |
           cd third_party/masstree
           ./bootstrap.sh
@@ -39,6 +42,7 @@ jobs:
 
       - id: Build_third_party_googletest
         name: Build_third_party_googletest
+        continue-on-error: false
         run: |
           cd third_party/googletest
           mkdir -p build
@@ -48,6 +52,7 @@ jobs:
 
       - id: Build_bench
         name: Build_bench
+        continue-on-error: false
         run: |
           mkdir -p build
           cd build
